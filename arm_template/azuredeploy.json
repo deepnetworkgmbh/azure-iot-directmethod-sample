@@ -1,0 +1,41 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "IotName": {
+      "type": "string"
+    },
+    "StorageName": {
+      "type": "string"
+    }
+  },
+  "variables": { },
+  "resources": [
+    {
+      "type": "Microsoft.Devices/IotHubs",
+      "apiVersion": "2018-04-01",
+      "location": "[resourceGroup().location]",
+      "name": "[parameters('IotName')]",
+      "sku": {
+        "name": "S1",
+        "capacity": "1"
+      },
+      "properties": { },
+      "dependsOn": [ ]
+    },
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2018-07-01",
+      "location": "[resourceGroup().location]",
+      "name": "[parameters('StorageName')]",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "accessTier": "Cool"
+      }
+    }
+  ],
+  "outputs": { }
+}
