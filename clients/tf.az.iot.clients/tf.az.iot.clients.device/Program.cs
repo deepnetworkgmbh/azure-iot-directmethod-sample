@@ -11,13 +11,15 @@ namespace tf.az.iot.clients.device
 {
     internal class Program
     {
+        private static DeviceClient deviceClient;
+
         private const TransportType transportType = TransportType.Amqp;
 
         private static int Main(string[] args)
         {
             var settings = JObject.Parse(File.ReadAllText("env.vars"));
             var deviceConnectionString = settings["iot"]["device"]["connection_string"].ToString();
-            var deviceClient = DeviceClient.CreateFromConnectionString(deviceConnectionString, transportType);
+            deviceClient = DeviceClient.CreateFromConnectionString(deviceConnectionString, transportType);
 
             if (deviceClient == null)
             {
@@ -26,7 +28,6 @@ namespace tf.az.iot.clients.device
             }
 
             deviceClient.SetMethodHandlerAsync("cloud-device-connectivity", Handler, null).Wait();
-
             Console.WriteLine("Press ENTER to stop DEVICE simulator");
             Console.ReadLine();
 
@@ -40,7 +41,9 @@ namespace tf.az.iot.clients.device
             var response = $"{{ \"request\": {data}, \"at\": \"{DateTime.UtcNow}\" }}";
             Console.WriteLine($"Sending {response}");
 
-            return Task.FromResult(new MethodResponse(Encoding.ASCII.GetBytes(response), 200));
+            deviceClient.SendEventAsync(new Message(Encoding.ASCII.GetBytes(response)));
+
+            return Task.FromResult(new MethodResponse(200));
         }
     }
 }
