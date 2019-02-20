@@ -82,18 +82,15 @@ To verify Direct Method communication channel start all three projects.
 
 Sample output:
 
-![No responses](./content/no_responses.png)
+![normal events](./content/device_responces.png)
 
 - right top corner is Direct Method invoker. You can see it sent 2 events
 - left top corner is Device Simulator, which listens for Direct Methods invocation and responds to them. You can see it sent 2 events in response to the requests from the previous clause.
-- at the bottom is device response listener, which is connected to built-in [device-2-cloud events](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin) endpoint. At this screenshot you can see, that it's not able to read any message, sent by device from the previous clause.
+- at the bottom is device response listener, which is connected to built-in [device-2-cloud events](https://docs.microsoft.com/en-us/azure/iot-hub/iot-hub-devguide-messages-read-builtin) endpoint.
 
 ## Current status
 
-At the moment, Azure IoT Hub provisioned with any of provided scripts does not provide `device-2-cloud` events, as it's shown on the screenshot above.
+At the moment, Azure IoT Hub provisioned with Terraform template does not provide `device-2-cloud` events:
+![No responses](./content/no_responses.png)
 
-Only a week ago, it was the same only for Terraform, but was working fine for IoT Hub created by ARM templates or with `az cli` commands.
-
-Our old IoT Hubs, created weeks or months ago produces events as before:
-
-![normal events](./content/device_responces.png)
+The same functionality works fine for IoT Hub created by ARM templates or with `az cli` commands
