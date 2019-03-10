@@ -93,4 +93,7 @@ Sample output:
 At the moment, Azure IoT Hub provisioned with Terraform template does not provide `device-2-cloud` events:
 ![No responses](./content/no_responses.png)
 
-The same functionality works fine for IoT Hub created by ARM templates or with `az cli` commands
+**UPDATE 10.03.2019**
+~~The same functionality works fine for IoT Hub created by ARM templates or with `az cli` commands~~
+
+The same corrupted result might be achieved adding empty arrays to `routing` property in ARM template.

@@ -20,7 +20,17 @@
         "name": "S1",
         "capacity": "1"
       },
-      "properties": { },
+      "properties": { 
+        "routing": {
+          "endpoints": {
+            "serviceBusQueues": [ ],
+            "serviceBusTopics": [ ],
+            "eventHubs": [ ],
+            "storageContainers": [ ]
+          },
+          "routes": [ ]
+        }
+      },
       "dependsOn": [ ]
     },
     {
